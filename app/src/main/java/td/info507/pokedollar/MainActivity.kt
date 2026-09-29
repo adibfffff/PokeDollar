@@ -26,17 +26,19 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PokeDollarTheme {
-                Button(
-                    onClick = {
+                column (){
+                    Button(
+                        onClick = {
 
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "test",
-                        style = MaterialTheme.typography.bodyLarge
+                        },
+                         modifier = Modifier.fillMaxWidth()
+                    )   {
+                         Text(
+                             text = "test",
+                            style = MaterialTheme.typography.bodyLarge
                     )
-                }
+
+                }}
             }
         }
     }
