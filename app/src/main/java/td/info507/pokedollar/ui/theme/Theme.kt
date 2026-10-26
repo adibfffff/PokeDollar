@@ -4,7 +4,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 
-
 private val ColorScheme = darkColorScheme(
     primary = Gold500,
     onPrimary = Black900,
@@ -22,7 +21,7 @@ private val ColorScheme = darkColorScheme(
 fun PokeDollarTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = ColorScheme,
-        typography = Typography,
+        typography = Typography, // vient de Type.kt (même package)
         content = content
     )
 }
