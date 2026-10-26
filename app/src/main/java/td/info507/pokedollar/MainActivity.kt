@@ -1,6 +1,5 @@
 package td.info507.pokedollar
 
-import android.R.attr.color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,8 +9,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,60 +45,78 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen() {
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
-        Text(text = stringResource(R.string.home_collection),
+        Text(
+            text = stringResource(R.string.home_collection),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        Text("50.45€",
+        )
+        Text(
+            text = stringResource(R.string.common_price, 57.46),
             style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.primary)
-        Text(text = stringResource(R.string.home_expensiveCard),
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = stringResource(R.string.home_expensiveCard),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(top = 24.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            modifier = Modifier.padding(top = 24.dp)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     painter = painterResource(id = R.drawable.ic_card_placeholder),
                     contentDescription = stringResource(R.string.common_card)
 
                 )
-                Text("10€",
+                Text(
+                    text = stringResource(R.string.common_price, 15.0),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary)
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     painter = painterResource(id = R.drawable.ic_card_placeholder),
-                    stringResource(R.string.common_card)
+                    contentDescription = stringResource(R.string.common_card)
                 )
-                Text("15€",
+                Text(
+                    text = stringResource(R.string.common_price, 10.0),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary)
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     painter = painterResource(id = R.drawable.ic_card_placeholder),
-                    stringResource(R.string.common_card)
+                    contentDescription = stringResource(R.string.common_card)
                 )
-                Text("9€",
+                Text(
+                    text = stringResource(R.string.common_price, 5.0),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary)
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
         }
     }
@@ -110,6 +127,11 @@ fun HomeScreen() {
 @Composable
 fun HomeScreenPreview() {
     PokeDollarTheme {
-        HomeScreen()
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            HomeScreen()
+        }
     }
 }
