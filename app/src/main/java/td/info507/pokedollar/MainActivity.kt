@@ -42,6 +42,8 @@ fun TestScreen() {
             text = "PokeDollar",
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
+
         )
     }
 }
+

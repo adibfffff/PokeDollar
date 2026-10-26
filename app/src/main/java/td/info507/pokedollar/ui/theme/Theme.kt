@@ -3,6 +3,7 @@ package td.info507.pokedollar.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import td.info507.pokedollar.R
 
 private val ColorScheme = darkColorScheme(
     primary = Gold500,
@@ -16,12 +17,4 @@ private val ColorScheme = darkColorScheme(
     onSurfaceVariant = Grey400
 )
 
-// Thème appliqué à toute l'app
-@Composable
-fun PokeDollarTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = ColorScheme,
-        typography = Typography, // vient de Type.kt (même package)
-        content = content
-    )
-}
+

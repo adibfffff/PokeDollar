@@ -3,7 +3,7 @@ package td.info507.pokedollar.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
-package td.info507.pokedollar.ui.theme
+
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -32,6 +32,7 @@ val Typography = Typography(
         fontFamily = MontserratFontFamily,
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold
+
     ),
     // Nom d'une carte
     bodyLarge = TextStyle(
@@ -67,5 +68,6 @@ fun PokeDollarTheme(content: @Composable () -> Unit) {
         colorScheme = ColorScheme,
         typography = Typography,
         content = content
+
     )
 }
