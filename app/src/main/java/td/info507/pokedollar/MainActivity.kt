@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import td.info507.pokedollar.ui.theme.PokeDollarTheme
@@ -51,14 +52,14 @@ fun HomeScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
     ) {
-        Text("Ta collection",
+        Text(text = stringResource(R.string.home_collection),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         Text("50.45€",
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary)
-        Text("vos cartes les plus cheres",
+        Text(text = stringResource(R.string.home_expensiveCard),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(top = 24.dp))
@@ -69,7 +70,7 @@ fun HomeScreen() {
                 Image(
                     modifier = Modifier.width(100.dp),
                     painter = painterResource(id = R.drawable.ic_card_placeholder),
-                    contentDescription = "Carte"
+                    contentDescription = stringResource(R.string.common_card)
 
                 )
                 Text("10€",
@@ -82,7 +83,7 @@ fun HomeScreen() {
                 Image(
                     modifier = Modifier.width(100.dp),
                     painter = painterResource(id = R.drawable.ic_card_placeholder),
-                    contentDescription = "Carte"
+                    stringResource(R.string.common_card)
                 )
                 Text("15€",
                     style = MaterialTheme.typography.bodyMedium,
@@ -94,7 +95,7 @@ fun HomeScreen() {
                 Image(
                     modifier = Modifier.width(100.dp),
                     painter = painterResource(id = R.drawable.ic_card_placeholder),
-                    contentDescription = "Carte"
+                    stringResource(R.string.common_card)
                 )
                 Text("9€",
                     style = MaterialTheme.typography.bodyMedium,
