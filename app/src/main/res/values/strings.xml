@@ -5,7 +5,9 @@
     <string name="home_collection">Votre collection</string>
     <string name="home_share">Partager ma collection</string>
     <string name="home_share_empty">Votre collection est vide !</string>
-    <string name ="home_share_text">Ma collection coûte %.2f € et la tienne ?</string>
+    <string name="home_share_text">Ma collection coûte %.2f € et la tienne ?</string>
+    
+    <string name="collection_title">Ma collection</string>
 
     <string name="common_card">Carte</string>
     <string name="common_price">%.2f €</string>

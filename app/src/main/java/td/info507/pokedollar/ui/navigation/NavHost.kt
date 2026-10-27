@@ -13,7 +13,7 @@ import td.info507.pokedollar.ui.feature.search.SearchScreen
 
 @Composable
 fun NavHost(){
-    val backStack = rememberNavBackStack(Destination.Home)
+    val backStack = rememberNavBackStack(Destination.Collection)
 
     NavDisplay(
         backStack = backStack,
