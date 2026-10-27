@@ -1,6 +1,7 @@
 package td.info507.pokedollar
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,6 +52,9 @@ class MainActivity : ComponentActivity() {
 // Écran d'accueil
 @Composable
 fun HomeScreen() {
+    val isCollectionEmpty = true
+    val message = stringResource(R.string.home_share_empty)
+    val context = LocalContext.current
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -57,7 +62,10 @@ fun HomeScreen() {
         //icon de partage
 
         IconButton(
-            onClick = { },
+            onClick = {
+                if(isCollectionEmpty){
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            }},
             modifier = Modifier
                 .align(Alignment.TopEnd)
 
