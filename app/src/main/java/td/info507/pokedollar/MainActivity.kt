@@ -1,5 +1,7 @@
 package td.info507.pokedollar
 
+import android.R.id.shareText
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -52,7 +54,7 @@ class MainActivity : ComponentActivity() {
 // Écran d'accueil
 @Composable
 fun HomeScreen() {
-    val isCollectionEmpty = true
+    val isCollectionEmpty = false
     val message = stringResource(R.string.home_share_empty)
     val context = LocalContext.current
 
@@ -65,7 +67,14 @@ fun HomeScreen() {
             onClick = {
                 if(isCollectionEmpty){
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-            }},
+                }
+                else{
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "text/plain" // le type de contenu a partager
+                    intent.putExtra(Intent.EXTRA_TEXT, shareText)
+                    context.startActivity(intent)
+                }
+                      },
             modifier = Modifier
                 .align(Alignment.TopEnd)
 
