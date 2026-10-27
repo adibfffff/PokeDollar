@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PokeDollar</string>
+
+    <string name="home_expensiveCard">Vos cartes les plus chères</string>
+    <string name="home_collection">Votre collection</string>
+    <string name="home_share">Partager ma collection</string>
+    <string name="home_share_empty">Votre collection est vide !</string>
+
+    <string name="common_card">Carte</string>
+    <string name="common_price">%.2f €</string>
 </resources>
