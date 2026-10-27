@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 
 // Écran de détail d'une carte (vide pour l'instant)
 @Composable
-fun CardDetailScreen(cardId: String) {
+fun CardDetailScreen(cardId: String, navigateBack: () -> Unit) {
     Text(text = "Détail de $cardId")
 }

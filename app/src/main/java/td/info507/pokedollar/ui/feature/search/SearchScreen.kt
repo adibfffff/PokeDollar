@@ -1,4 +1,4 @@
-package td.info507.pokedollar.ui.feature.collection
+package td.info507.pokedollar.ui.feature.search
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

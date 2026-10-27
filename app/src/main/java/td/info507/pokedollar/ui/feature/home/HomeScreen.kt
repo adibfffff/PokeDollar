@@ -3,6 +3,7 @@ package td.info507.pokedollar.ui.feature.home
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,16 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import td.info507.pokedollar.R
-import td.info507.pokedollar.ui.theme.PokeDollarTheme
 
 // Écran d'accueil
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onCardClicked: (String) -> Unit) {
     val isCollectionEmpty = false
     val message = stringResource(R.string.home_share_empty)
+    val shareText = stringResource(R.string.home_share_text, 57.46)
     val context = LocalContext.current
 
     Box(
@@ -49,7 +48,7 @@ fun HomeScreen() {
                 } else {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.type = "text/plain" // le type de contenu a partager
-                    intent.putExtra(Intent.EXTRA_TEXT, android.R.id.shareText)
+                    intent.putExtra(Intent.EXTRA_TEXT, shareText)
                     context.startActivity(intent)
                 }
             },
@@ -98,6 +97,9 @@ fun HomeScreen() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
+                                       .clickable{
+                                                onCardClicked("carte 1")
+                    }
                 ) {
                     Image(
                         modifier = Modifier.fillMaxWidth(),
@@ -114,6 +116,9 @@ fun HomeScreen() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
+                        .clickable{
+                            onCardClicked("carte 2")
+                        }
                 ) {
                     Image(
                         modifier = Modifier.fillMaxWidth(),
@@ -129,6 +134,9 @@ fun HomeScreen() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
+                        .clickable{
+                            onCardClicked("carte 3")
+                        }
                 ) {
                     Image(
                         modifier = Modifier.fillMaxWidth(),
@@ -146,16 +154,3 @@ fun HomeScreen() {
     }
 }
 
-// Aperçu dans Android Studio (sans émulateur)
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    PokeDollarTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            HomeScreen()
-        }
-    }
-}

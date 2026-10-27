@@ -1,6 +1,6 @@
 package td.info507.pokedollar
 
-import NavHost
+import td.info507.pokedollar.ui.navigation.NavHost
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import td.info507.pokedollar.ui.feature.home.HomeScreen
 import td.info507.pokedollar.ui.theme.PokeDollarTheme
 
 class MainActivity : ComponentActivity() {
