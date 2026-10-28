@@ -14,14 +14,14 @@ object CardRepository {
     // Toute la collection
     fun getCollection(): Flow<List<Card>> {
         return PokeDollarDatabaseHolder.database?.cardDao()?.getAll()
-            ?.map { entities -> entities.map { it.toCard() } }   // chaque liste : Entity → Card
-            ?: flowOf(emptyList())                               // base pas prête → liste vide
+            ?.map { entities -> entities.map { it.toCard() } }
+            ?: flowOf(emptyList())
     }
 
     // Une carte par son id (null si elle n'est pas dans la collection)
     fun getCard(id: String): Flow<Card?> {
         return PokeDollarDatabaseHolder.database?.cardDao()?.getById(id)
-            ?.map { entity -> entity?.toCard() }   // une seule carte, peut-être absente
+            ?.map { entity -> entity?.toCard() }   //
             ?: flowOf(null)
     }
 
