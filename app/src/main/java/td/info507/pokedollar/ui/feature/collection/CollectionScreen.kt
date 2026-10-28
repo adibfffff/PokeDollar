@@ -13,11 +13,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.stringResource
 import td.info507.pokedollar.R
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 
 // Écran de la collection (vide pour l'instant)
 @Composable
-fun CollectionScreen() {
-    val cards = List(100) { index -> "Carte $index" }   // temporaire : 100 éléments
+fun CollectionScreen(viewModel: CollectionViewModel = viewModel()) {
+    val cards by viewModel.cards.collectAsStateWithLifecycle()
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -33,9 +37,9 @@ fun CollectionScreen() {
             )
         }
 
-        items(items = cards, key = { it }) { element ->
+        items(items = cards, key = { it.id }) { element ->
             Text(
-                text = element,
+                text = element.name,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
