@@ -113,7 +113,7 @@ fun NavHost(){
                 ProfileScreen()
             }
             entry<Destination.Search> {
-                SearchScreen()
+                SearchScreen(onCardClicked = { cardId -> backStack.add(Destination.CardDetail(cardId)) })
             }
         }
     )}
