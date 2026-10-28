@@ -5,11 +5,12 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.local.PokeDollarDatabaseHolder
+import td.info507.pokedollar.remote.TcgdexApi
 
 
 // 💁 LE GUICHET : seul à aller chercher les données (et à les traduire en Card)
 object CardRepository {
-
+    // ── API (TCGdex) ──
     // Toute la collection
     fun getCollection(): Flow<List<Card>> {
         return PokeDollarDatabaseHolder.database?.cardDao()?.getAll()
@@ -32,5 +33,16 @@ object CardRepository {
     // Supprime la carte de la collection
     suspend fun removeCard(card: Card) {
         PokeDollarDatabaseHolder.database?.cardDao()?.delete(CardEntity.fromCard(card))
+    }
+    // ── API ──
+
+    // Recherche par nom sur l'API → liste de Card (sans prix ni série)
+    suspend fun searchCards(name: String): List<Card> {
+        return TcgdexApi.searchCards(name).map { remoteCard -> remoteCard.toCard() }
+    }
+
+    // Détail d'une carte sur l'API → Card complète (avec prix et série)
+    suspend fun fetchCard(id: String): Card {
+        return TcgdexApi.getCard(id).toCard()
     }
 }
