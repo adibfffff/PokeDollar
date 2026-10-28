@@ -86,7 +86,7 @@ fun HomeScreen(onCardClicked: (String) -> Unit, viewModel: HomeViewModel = viewM
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = stringResource(R.string.common_price, 57.46),
+                text = stringResource(R.string.common_price, total),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary
             )

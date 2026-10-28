@@ -6,8 +6,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.domain.usecase.GetCollectionUseCase
+import td.info507.pokedollar.domain.usecase.SeedCollectionUseCase
+
 
 class HomeViewModel : ViewModel() {
 
@@ -40,4 +43,10 @@ class HomeViewModel : ViewModel() {
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = true
             )
+
+    init {
+        viewModelScope.launch {
+            //SeedCollectionUseCase.invoke()
+        }
+    }
 }
