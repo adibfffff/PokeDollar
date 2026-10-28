@@ -2,8 +2,6 @@ package td.info507.pokedollar.ui.feature.home
 
 import android.content.Intent
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,14 +22,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import td.info507.pokedollar.R
+import td.info507.pokedollar.ui.component.CardItem
+import androidx.compose.runtime.getValue
 
 // Écran d'accueil
 @Composable
-fun HomeScreen(onCardClicked: (String) -> Unit) {
-    val isCollectionEmpty = false
+fun HomeScreen(onCardClicked: (String) -> Unit, viewModel: HomeViewModel = viewModel()) {
+
+    val total by viewModel.total.collectAsStateWithLifecycle()
+    val topCards by viewModel.topCards.collectAsStateWithLifecycle()
+    val isCollectionEmpty by viewModel.isCollectionEmpty.collectAsStateWithLifecycle()
+
     val message = stringResource(R.string.home_share_empty)
-    val shareText = stringResource(R.string.home_share_text, 57.46)
+    val shareText = stringResource(R.string.home_share_text, total)
     val context = LocalContext.current
 
     Box(
@@ -94,59 +100,11 @@ fun HomeScreen(onCardClicked: (String) -> Unit) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                                       .clickable{
-                                                onCardClicked("carte 1")
-                    }
-                ) {
-                    Image(
-                        modifier = Modifier.fillMaxWidth(),
-                        painter = painterResource(id = R.drawable.ic_card_placeholder),
-                        contentDescription = stringResource(R.string.common_card)
-
-                    )
-                    Text(
-                        text = stringResource(R.string.common_price, 15.0),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                        .clickable{
-                            onCardClicked("carte 2")
-                        }
-                ) {
-                    Image(
-                        modifier = Modifier.fillMaxWidth(),
-                        painter = painterResource(id = R.drawable.ic_card_placeholder),
-                        contentDescription = stringResource(R.string.common_card)
-                    )
-                    Text(
-                        text = stringResource(R.string.common_price, 10.0),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                        .clickable{
-                            onCardClicked("carte 3")
-                        }
-                ) {
-                    Image(
-                        modifier = Modifier.fillMaxWidth(),
-                        painter = painterResource(id = R.drawable.ic_card_placeholder),
-                        contentDescription = stringResource(R.string.common_card)
-                    )
-                    Text(
-                        text = stringResource(R.string.common_price, 5.0),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
+                topCards.forEach { card ->
+                    CardItem(
+                        card = card,
+                        onClick = { onCardClicked(card.id) },
+                        modifier = Modifier.weight(1f)
                     )
                 }
             }

@@ -107,7 +107,7 @@ fun NavHost(){
                     navigateBack = {backStack.removeLastOrNull()})
             }
             entry<Destination.Collection> {
-                CollectionScreen()
+                CollectionScreen(onCardClicked = {cardId -> backStack.add(Destination.CardDetail(cardId))})
             }
             entry<Destination.Profile> {
                 ProfileScreen()
