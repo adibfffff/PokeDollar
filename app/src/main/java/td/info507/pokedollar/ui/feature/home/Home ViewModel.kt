@@ -46,7 +46,7 @@ class HomeViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            SeedCollectionUseCase.invoke()
+            //SeedCollectionUseCase.invoke()
         }
     }
 }
