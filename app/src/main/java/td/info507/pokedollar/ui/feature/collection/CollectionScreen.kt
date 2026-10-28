@@ -28,7 +28,7 @@ import td.info507.pokedollar.ui.component.CardItem
 
 // Écran de la collection (vide pour l'instant)
 @Composable
-fun CollectionScreen(viewModel: CollectionViewModel = viewModel()) {
+fun CollectionScreen(onCardClicked: (String) -> Unit, viewModel: CollectionViewModel = viewModel()) {
     val cards by viewModel.cards.collectAsStateWithLifecycle()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -53,7 +53,7 @@ fun CollectionScreen(viewModel: CollectionViewModel = viewModel()) {
         }
 
         items(items = cards, key = { it.id }) { element ->
-            CardItem(card = element, onClick = { })
+            CardItem(card = element, onClick = {onCardClicked(element.id) })
         }
     }
 }
