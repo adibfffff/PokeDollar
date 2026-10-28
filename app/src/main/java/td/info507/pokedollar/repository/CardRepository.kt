@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.local.PokeDollarDatabaseHolder
-import td.info507.pokedollar.local.entity.CardEntity
+
 
 // 💁 LE GUICHET : seul à aller chercher les données (et à les traduire en Card)
 object CardRepository {
