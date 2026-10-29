@@ -3,9 +3,9 @@ package td.info507.pokedollar.domain.usecase
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.repository.CardRepository
 
-// Enregistre la carte dans la collection (ajout ou nouvelle quantité)
-object SaveCardUseCase {
+// Ajoute un exemplaire de la carte à la collection
+object AddCopyUseCase {
     suspend fun invoke(card: Card): Result<Unit> {
-        return runCatching { CardRepository.saveCard(card) }
+        return runCatching { CardRepository.addOneCopy(card) }
     }
 }

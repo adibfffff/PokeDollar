@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import td.info507.pokedollar.local.dao.CardDao
+import td.info507.pokedollar.local.entity.CardEntity
 
 
 // 📒 LE CLASSEUR : la base de données

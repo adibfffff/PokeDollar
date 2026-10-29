@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.local.PokeDollarDatabaseHolder
+import td.info507.pokedollar.local.entity.CardEntity
 import td.info507.pokedollar.remote.TcgdexApi
 
 
@@ -44,5 +45,24 @@ object CardRepository {
     // Détail d'une carte sur l'API → Card complète (avec prix et série)
     suspend fun fetchCard(id: String): Card {
         return TcgdexApi.getCard(id).toCard()
+    }
+
+    // +1 exemplaire : lit la quantité actuelle en base, puis écrit la nouvelle
+    suspend fun addOneCopy(card: Card) {
+        val dao = PokeDollarDatabaseHolder.database?.cardDao() ?: return
+        val existing = dao.findById(card.id)
+        val newQuantity = (existing?.quantity ?: 0) + 1
+        dao.upsert(CardEntity.fromCard(card.copy(quantity = newQuantity)))
+    }
+
+    // −1 exemplaire : supprime la carte si c'était la dernière
+    suspend fun removeOneCopy(id: String) {
+        val dao = PokeDollarDatabaseHolder.database?.cardDao() ?: return
+        val existing = dao.findById(id) ?: return
+        if (existing.quantity > 1) {
+            dao.upsert(existing.copy(quantity = existing.quantity - 1))
+        } else {
+            dao.delete(existing)
+        }
     }
 }

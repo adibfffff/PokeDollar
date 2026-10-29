@@ -1,6 +1,5 @@
 package td.info507.pokedollar.ui.navigation
 
-import Destination
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +20,7 @@ import td.info507.pokedollar.ui.feature.detail.CardDetailScreen
 import td.info507.pokedollar.ui.feature.home.HomeScreen
 import td.info507.pokedollar.ui.feature.profile.ProfileScreen
 import td.info507.pokedollar.ui.feature.search.SearchScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
@@ -103,8 +103,11 @@ fun NavHost(){
                 HomeScreen(onCardClicked = {cardId -> backStack.add(Destination.CardDetail(cardId))})
             }
             entry<Destination.CardDetail> { key ->
-                CardDetailScreen(cardId = key.cardId,
-                    navigateBack = {backStack.removeLastOrNull()})
+                CardDetailScreen(
+                    cardId = key.cardId,
+                    navigateBack = {backStack.removeLastOrNull()},
+                    viewModel = viewModel(key = key.cardId)
+                )
             }
             entry<Destination.Collection> {
                 CollectionScreen(onCardClicked = {cardId -> backStack.add(Destination.CardDetail(cardId))})

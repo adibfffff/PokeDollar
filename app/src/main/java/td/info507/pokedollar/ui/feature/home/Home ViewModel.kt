@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.domain.usecase.GetCollectionUseCase
-import td.info507.pokedollar.domain.usecase.SeedCollectionUseCase
 
 
 class HomeViewModel : ViewModel() {
@@ -44,9 +43,5 @@ class HomeViewModel : ViewModel() {
                 initialValue = true
             )
 
-    init {
-        viewModelScope.launch {
-            SeedCollectionUseCase.invoke()
-        }
+
     }
-}

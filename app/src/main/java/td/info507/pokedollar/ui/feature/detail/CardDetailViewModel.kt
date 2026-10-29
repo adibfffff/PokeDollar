@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.domain.usecase.GetCardDetailUseCase
 import td.info507.pokedollar.domain.usecase.GetCollectionCardUseCase
-import td.info507.pokedollar.domain.usecase.RemoveCardUseCase
-import td.info507.pokedollar.domain.usecase.SaveCardUseCase
+import td.info507.pokedollar.domain.usecase.AddCopyUseCase
+import td.info507.pokedollar.domain.usecase.RemoveCopyUseCase
 
 class CardDetailViewModel : ViewModel() {
 
@@ -27,6 +27,8 @@ class CardDetailViewModel : ViewModel() {
 
     var hasError by mutableStateOf(false)
         private set
+
+    private var isSaving = false
 
     // La carte telle qu'elle est dans Room (null si pas possédée)
     private var ownedCard: Card? = null
@@ -60,23 +62,26 @@ class CardDetailViewModel : ViewModel() {
         }
     }
 
-    // Bouton Ajouter : +1 exemplaire (avec les infos à jour de l'API)
+    // Bouton Ajouter : +1 exemplaire
     fun addOne() {
         val current = card ?: return
+        if (isSaving) return
+        isSaving = true
         viewModelScope.launch {
-            SaveCardUseCase.invoke(current.copy(quantity = ownedQuantity + 1))
+            AddCopyUseCase.invoke(current)
+            isSaving = false
         }
     }
 
-    // Corbeille : −1 exemplaire, ou suppression si c'était le dernier
+    // Corbeille : −1 exemplaire (supprime la carte si c'était la dernière)
     fun removeOne() {
-        val owned = ownedCard ?: return
+        val current = card ?: return
+        if (isSaving) return
+        isSaving = true
         viewModelScope.launch {
-            if (owned.quantity > 1) {
-                SaveCardUseCase.invoke(owned.copy(quantity = owned.quantity - 1))
-            } else {
-                RemoveCardUseCase.invoke(owned)
-            }
+            RemoveCopyUseCase.invoke(current.id)
+            isSaving = false
         }
     }
+
 }

@@ -18,3 +18,13 @@ private val ColorScheme = darkColorScheme(
 )
 
 
+// Thème appliqué à toute l'app
+@Composable
+fun PokeDollarTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = ColorScheme,
+        typography = Typography,
+        content = content
+
+    )
+}

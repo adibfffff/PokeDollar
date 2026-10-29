@@ -18,6 +18,13 @@
     <string name="search_button">Lancer la recherche</string>
     <string name="search_error">Impossible de charger les cartes</string>
 
+    <string name="detail_add">Ajouter à ma collection</string>
+    <string name="detail_added">Carte ajoutée à ta collection</string>
+    <string name="detail_remove">Retirer un exemplaire</string>
+    <string name="detail_no_price">Prix indisponible</string>
+    <string name="detail_error">Impossible de charger la carte. Vérifie ta connexion.</string>
+
+    <string name="common_quantity">×%d</string>
     <string name="common_card">Carte</string>
     <string name="common_price">%.2f €</string>
     <string name="common_back">Retour</string>
