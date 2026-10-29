@@ -4,10 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +20,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil3.compose.SubcomposeAsyncImage
+import coil3.compose.rememberAsyncImagePainter
 import td.info507.pokedollar.R
 import td.info507.pokedollar.domain.data.Card
 
@@ -33,11 +38,40 @@ fun CardItem(card: Card, onClick: () -> Unit, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         // Image
-        Image(
-            painter = painterResource(id = R.drawable.ic_card_placeholder),
-            contentDescription = card.name,
-            modifier = Modifier.fillMaxWidth()
-        )
+        // Image : depuis Internet si on a une URL, sinon l'image par défaut
+        // Format d'une carte Pokémon : 63 × 88 mm
+        val cardModifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(63f / 88f)
+
+        if (card.image != null) {
+            // Image depuis Internet
+            SubcomposeAsyncImage(
+                model = card.image,
+                contentDescription = card.name,
+                modifier = cardModifier,
+                loading = {
+                    // Pendant le chargement : roue dorée au centre
+                    Box(contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                    }
+                },
+                error = {
+                    // Échec du téléchargement : image par défaut
+                    Image(
+                        painter = painterResource(R.drawable.ic_card_placeholder),
+                        contentDescription = card.name
+                    )
+                }
+            ) // fin SubcomposeAsyncImage
+        } else {
+            // Carte sans image : image par défaut
+            Image(
+                painter = painterResource(R.drawable.ic_card_placeholder),
+                contentDescription = card.name,
+                modifier = cardModifier
+            )
+        }
 
         // Prix, seulement s'il existe
         if (card.price != null) {
