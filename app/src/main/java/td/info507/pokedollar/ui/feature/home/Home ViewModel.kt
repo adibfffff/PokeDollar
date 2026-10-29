@@ -26,7 +26,8 @@ class HomeViewModel : ViewModel() {
 
     val topCards: StateFlow<List<Card>> =
         GetCollectionUseCase.invoke()
-            .map { cards -> cards.sortedByDescending { it.price ?: 0.0 }.take(3) }
+            // On ignore les cartes sans prix, puis on garde les 3 plus chères
+            .map { cards -> cards.filter { it.price != null }.sortedByDescending { it.price ?: 0.0 }.take(3) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
