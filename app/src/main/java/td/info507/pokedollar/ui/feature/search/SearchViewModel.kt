@@ -23,6 +23,10 @@ class SearchViewModel : ViewModel() {
     var hasError by mutableStateOf(false)
         private set
 
+    // Vrai dès qu'une recherche a abouti (pour distinguer "pas cherché" et "rien trouvé")
+    var hasSearched by mutableStateOf(false)
+        private set
+
     // Lancée par l'écran quand l'utilisateur valide sa recherche
     fun search(name: String) {
         if (name.isBlank()) return
@@ -32,7 +36,10 @@ class SearchViewModel : ViewModel() {
             hasError = false
 
             SearchCardsUseCase.invoke(name)
-                .onSuccess { cards -> results = cards }
+                .onSuccess { cards ->
+                    results = cards
+                    hasSearched = true
+                }
                 .onFailure {
                     hasError = true
                     results = emptyList()

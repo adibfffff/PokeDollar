@@ -71,6 +71,13 @@ fun SearchScreen(onCardClicked: (String) -> Unit, viewModel: SearchViewModel = v
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+        } else if (viewModel.hasSearched && viewModel.results.isEmpty()) {
+            // Recherche réussie mais aucune carte
+            Text(
+                text = stringResource(R.string.search_empty),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         } else {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),

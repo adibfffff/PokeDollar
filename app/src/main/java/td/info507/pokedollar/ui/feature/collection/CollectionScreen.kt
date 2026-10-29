@@ -52,6 +52,17 @@ fun CollectionScreen(onCardClicked: (String) -> Unit, viewModel: CollectionViewM
             } // fin Box
         }
 
+        // Collection vide : un message sur toute la largeur
+        if (cards.isEmpty()) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Text(
+                    text = stringResource(R.string.collection_empty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+
         items(items = cards, key = { it.id }) { element ->
             CardItem(card = element, onClick = {onCardClicked(element.id) })
         }

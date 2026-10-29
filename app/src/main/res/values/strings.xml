@@ -8,6 +8,7 @@
     <string name="home_share_text">Ma collection coûte %.2f € et la tienne ?</string>
     
     <string name="collection_title">Ma collection</string>
+    <string name="collection_empty">Ta collection est vide. Cherche une carte pour l\'ajouter !</string>
 
     <string name="nav_collection">Collection</string>
     <string name="nav_search">Recherche</string>
@@ -17,6 +18,7 @@
     <string name="search_hint">Rechercher une carte</string>
     <string name="search_button">Lancer la recherche</string>
     <string name="search_error">Impossible de charger les cartes</string>
+    <string name="search_empty">Aucune carte trouvée</string>
 
     <string name="detail_add">Ajouter à ma collection</string>
     <string name="detail_added">Carte ajoutée à ta collection</string>
