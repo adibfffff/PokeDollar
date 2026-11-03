@@ -12,11 +12,10 @@ import td.info507.pokedollar.local.entity.CardEntity
 @Dao
 interface CardDao {
 
-    // Toutes les cartes
     @Query("SELECT * FROM cards")
     fun getAll(): Flow<List<CardEntity>>
 
-    // Une carte par son id (null si elle est pas dans la collection)
+    // null si elle n'est pas dans la collection
     @Query("SELECT * FROM cards WHERE id = :id")
     fun getById(id: String): Flow<CardEntity?>
 
@@ -24,11 +23,10 @@ interface CardDao {
     @Upsert
     suspend fun upsert(card: CardEntity)
 
-    // Supprime la carte qui a cet id
     @Delete
     suspend fun delete(card: CardEntity)
 
-    // Lecture ponctuelle d'une carte, pour la modifier juste après
+    // Lecture unique (pas un Flow), pour modifier la carte juste après
     @Query("SELECT * FROM cards WHERE id = :id")
     suspend fun findById(id: String): CardEntity?
 }

@@ -34,7 +34,6 @@ import coil3.compose.SubcomposeAsyncImage
 import td.info507.pokedollar.R
 import td.info507.pokedollar.ui.component.PrimaryButton
 
-// Détail d'une carte : image, nom, série, prix, ajout / retrait
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardDetailScreen(
@@ -42,19 +41,18 @@ fun CardDetailScreen(
     navigateBack: () -> Unit,
     viewModel: CardDetailViewModel = viewModel()
 ) {
-    // Charge la carte une fois à l'ouverture de l'écran
+    // Charge la carte quand l'écran s'ouvre
     LaunchedEffect(cardId) { viewModel.load(cardId) }
 
     val context = LocalContext.current
     val addedMessage = stringResource(R.string.detail_added)
-    val card = viewModel.card   // copie locale (pour le test != null)
+    val card = viewModel.card   // copie locale pour pouvoir tester != null
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        // Barre du haut : juste la flèche retour
         TopAppBar(
             title = { },
             navigationIcon = {
@@ -69,7 +67,7 @@ fun CardDetailScreen(
                 containerColor = Color.Transparent,
                 navigationIconContentColor = MaterialTheme.colorScheme.primary
             )
-        ) // fin TopAppBar
+        )
 
         if (card == null) {
             // Pas encore de carte : chargement ou erreur
@@ -86,13 +84,13 @@ fun CardDetailScreen(
                 } else {
                     CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                 }
-            } // fin Box
+            }
         } else {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // 1. Grande image
+                // Image
                 SubcomposeAsyncImage(
                     model = card.image,
                     contentDescription = card.name,
@@ -110,9 +108,9 @@ fun CardDetailScreen(
                             contentDescription = card.name
                         )
                     }
-                ) // fin SubcomposeAsyncImage
+                )
 
-                // 2. Nom + série à gauche, prix + quantité à droite
+                // Nom et série à gauche, prix à droite
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -130,7 +128,7 @@ fun CardDetailScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-                    } // fin Column gauche
+                    }
 
                     Column(horizontalAlignment = Alignment.End) {
                         Text(
@@ -149,10 +147,10 @@ fun CardDetailScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-                    } // fin Column droite
-                } // fin Row infos
+                    }
+                }
 
-                // 3. Bouton Ajouter (4f) + corbeille (1f) si possédée
+                // Ajouter, + corbeille si on a déjà la carte
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -178,8 +176,8 @@ fun CardDetailScreen(
                             )
                         }
                     }
-                } // fin Row boutons
-            } // fin Column contenu
+                }
+            }
         }
-    } // fin Column écran
-} // fin CardDetailScreen
+    }
+}

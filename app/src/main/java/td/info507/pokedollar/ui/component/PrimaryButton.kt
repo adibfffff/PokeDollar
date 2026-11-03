@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-// Bouton principal de l'app (même style partout)
+// Bouton réutilisé dans toute l'app
 @Composable
 fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Button(
@@ -17,8 +17,8 @@ fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifi
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,   // fond doré
-            contentColor = MaterialTheme.colorScheme.onPrimary    // texte noir
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
         Text(text = text, style = MaterialTheme.typography.bodyLarge)

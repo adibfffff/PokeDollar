@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,24 +33,22 @@ import androidx.compose.runtime.getValue
 @Composable
 fun HomeScreen(onCardClicked: (String) -> Unit, viewModel: HomeViewModel = viewModel()) {
 
-    val total by viewModel.total.collectAsStateWithLifecycle()
-    val topCards by viewModel.topCards.collectAsStateWithLifecycle()
-    val isCollectionEmpty by viewModel.isCollectionEmpty.collectAsStateWithLifecycle()
+    val summary by viewModel.summary.collectAsStateWithLifecycle()
 
     val message = stringResource(R.string.home_share_empty)
-    val shareText = stringResource(R.string.home_share_text, total)
+    val shareText = stringResource(R.string.home_share_text, summary.total)
     val context = LocalContext.current
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
-    ) {//permet de ne pas mettre l icone sous la batterie t l heure
+    ) {
         //icon de partage
 
         IconButton(
             onClick = {
-                if (isCollectionEmpty) {
+                if (summary.isEmpty) {
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 } else {
                     val intent = Intent(Intent.ACTION_SEND)
@@ -86,26 +85,36 @@ fun HomeScreen(onCardClicked: (String) -> Unit, viewModel: HomeViewModel = viewM
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = stringResource(R.string.common_price, total),
+                text = stringResource(R.string.common_price, summary.total),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary
             )
-            Text(
-                text = stringResource(R.string.home_expensiveCard),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(top = 24.dp)
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                topCards.forEach { card ->
-                    CardItem(
-                        card = card,
-                        onClick = { onCardClicked(card.id) },
-                        modifier = Modifier.weight(1f)
-                    )
+            if (summary.isEmpty) {
+                Text(
+                    text = stringResource(R.string.collection_empty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 24.dp)
+                )
+            } else if (summary.topCards.isNotEmpty()) {
+                Text(
+                    text = stringResource(R.string.home_expensiveCard),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(top = 24.dp)
+                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    summary.topCards.forEach { card ->
+                        CardItem(
+                            card = card,
+                            onClick = { onCardClicked(card.id) },
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
                 }
             }
         }

@@ -25,12 +25,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import td.info507.pokedollar.R
 import td.info507.pokedollar.ui.component.PrimaryButton
 
-// Écran du profil : pseudo enregistré + champ pour le changer
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel = viewModel()) {
     val preferences by viewModel.preferences.collectAsStateWithLifecycle()
 
-    // Texte tapé dans le champ (survit à la rotation)
     var newPseudo by rememberSaveable { mutableStateOf("") }
 
     val context = LocalContext.current
@@ -50,7 +48,6 @@ fun ProfileScreen(viewModel: ProfileViewModel = viewModel()) {
             color = MaterialTheme.colorScheme.primary
         )
 
-        // "Bonjour Adib !" ou "Tu n'as pas encore de pseudo"
         Text(
             text = if (preferences.pseudo.isEmpty()) {
                 stringResource(R.string.profile_no_pseudo)
@@ -73,7 +70,7 @@ fun ProfileScreen(viewModel: ProfileViewModel = viewModel()) {
             text = stringResource(R.string.profile_save),
             onClick = {
                 viewModel.savePseudo(newPseudo, onSaved = {
-                    newPseudo = ""   // on vide le champ
+                    newPseudo = ""
                     Toast.makeText(context, savedMessage, Toast.LENGTH_SHORT).show()
                 })
             },

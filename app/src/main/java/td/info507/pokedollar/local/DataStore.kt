@@ -5,10 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 
-// Le fichier de préférences "user_preferences" (clé → valeur), créé une seule fois
+// Fichier de préférences clé/valeur
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 
-// Comme PokeDollarDatabaseHolder : là où tout le monde vient chercher le DataStore
+// Même principe que PokeDollarDatabaseHolder
 data object DataStoreHolder {
     var dataStore: DataStore<Preferences>? = null
 

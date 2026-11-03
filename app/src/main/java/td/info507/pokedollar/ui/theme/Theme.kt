@@ -3,7 +3,6 @@ package td.info507.pokedollar.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
-import td.info507.pokedollar.R
 
 private val ColorScheme = darkColorScheme(
     primary = Gold500,

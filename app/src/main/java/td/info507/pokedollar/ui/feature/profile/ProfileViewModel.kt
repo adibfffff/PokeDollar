@@ -12,7 +12,6 @@ import td.info507.pokedollar.domain.usecase.SavePseudoUseCase
 
 class ProfileViewModel : ViewModel() {
 
-    // Le pseudo enregistré (se met à jour tout seul après un enregistrement)
     val preferences: StateFlow<UserPreferences> =
         GetUserPreferencesUseCase.invoke()
             .stateIn(
@@ -21,7 +20,7 @@ class ProfileViewModel : ViewModel() {
                 initialValue = UserPreferences(pseudo = "")
             )
 
-    // Bouton Enregistrer : onSaved est appelée seulement si ça a marché
+    // onSaved n'est appelée que si l'enregistrement a marché
     fun savePseudo(pseudo: String, onSaved: () -> Unit) {
         if (pseudo.isBlank()) return
         viewModelScope.launch {

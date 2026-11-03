@@ -14,55 +14,43 @@ import td.info507.pokedollar.domain.usecase.RemoveCopyUseCase
 
 class CardDetailViewModel : ViewModel() {
 
-    // La carte affichée (API, ou collection si hors-ligne)
+    // Carte de l'API, ou celle de la collection si pas de connexion
     var card by mutableStateOf<Card?>(null)
         private set
 
-    // Nombre d'exemplaires possédés (0 = pas dans la collection)
+    // 0 si la carte n'est pas dans la collection
     var ownedQuantity by mutableStateOf(0)
-        private set
-
-    var isLoading by mutableStateOf(true)
         private set
 
     var hasError by mutableStateOf(false)
         private set
-
     private var isSaving = false
 
-    // La carte telle qu'elle est dans Room (null si pas possédée)
-    private var ownedCard: Card? = null
-
-    // Id déjà chargé (évite de tout relancer après une rotation)
+    // Évite de tout recharger après une rotation
     private var loadedId: String? = null
 
-    // Appelée par l'écran avec l'id reçu par la navigation
     fun load(cardId: String) {
         if (loadedId == cardId) return
         loadedId = cardId
 
-        // ① Room : suit la carte dans la collection (mise à jour automatique)
+        // Room : la carte dans ma collection
         viewModelScope.launch {
             GetCollectionCardUseCase.invoke(cardId).collect { owned ->
-                ownedCard = owned
                 ownedQuantity = owned?.quantity ?: 0
                 if (card == null && owned != null) {
-                    card = owned          // en attendant l'API (ou si elle échoue)
+                    card = owned   // en attendant la réponse de l'API
                 }
             }
         }
 
-        // ② API : la carte complète (image HD, série, prix à jour)
+        // API : la carte complète avec le prix à jour
         viewModelScope.launch {
-            isLoading = true
             GetCardDetailUseCase.invoke(cardId)
                 .onSuccess { remote -> card = remote }
-                .onFailure { if (card == null) hasError = true }   // erreur seulement si rien à afficher
-            isLoading = false
+                .onFailure { if (card == null) hasError = true }   // erreur seulement s'il n'y a rien à afficher
         }
     }
 
-    // Bouton Ajouter : +1 exemplaire
     fun addOne() {
         val current = card ?: return
         if (isSaving) return
@@ -73,7 +61,7 @@ class CardDetailViewModel : ViewModel() {
         }
     }
 
-    // Corbeille : −1 exemplaire (supprime la carte si c'était la dernière)
+    // Supprime la carte si c'était le dernier exemplaire
     fun removeOne() {
         val current = card ?: return
         if (isSaving) return

@@ -21,51 +21,47 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
-import coil3.compose.rememberAsyncImagePainter
 import td.info507.pokedollar.R
 import td.info507.pokedollar.domain.data.Card
 
-// Une carte affichée dans une grille : image + prix + série
+// Une carte dans la grille : image, prix et série
 @Composable
 fun CardItem(card: Card, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .background(MaterialTheme.colorScheme.surface)
-            .clickable { onClick() }                          // toute la carte est cliquable
+            .clickable { onClick() }
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        // Image
-        // Image : depuis Internet si on a une URL, sinon l'image par défaut
+        // Image de la carte, ou image par défaut si pas d'URL
         // Format d'une carte Pokémon : 63 × 88 mm
         val cardModifier = Modifier
             .fillMaxWidth()
             .aspectRatio(63f / 88f)
 
         if (card.image != null) {
-            // Image depuis Internet
             SubcomposeAsyncImage(
                 model = card.image,
                 contentDescription = card.name,
                 modifier = cardModifier,
                 loading = {
-                    // Pendant le chargement : roue dorée au centre
+                    // pendant le chargement
                     Box(contentAlignment = Alignment.Center) {
                         CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                     }
                 },
                 error = {
-                    // Échec du téléchargement : image par défaut
+                    // si le téléchargement échoue
                     Image(
                         painter = painterResource(R.drawable.ic_card_placeholder),
                         contentDescription = card.name
                     )
                 }
-            ) // fin SubcomposeAsyncImage
+            )
         } else {
-            // Carte sans image : image par défaut
             Image(
                 painter = painterResource(R.drawable.ic_card_placeholder),
                 contentDescription = card.name,
@@ -73,7 +69,6 @@ fun CardItem(card: Card, onClick: () -> Unit, modifier: Modifier = Modifier) {
             )
         }
 
-        // Prix, seulement s'il existe
         if (card.price != null) {
             Text(
                 text = stringResource(R.string.common_price, card.price),
@@ -82,7 +77,6 @@ fun CardItem(card: Card, onClick: () -> Unit, modifier: Modifier = Modifier) {
             )
         }
 
-        // Série, seulement si elle existe
         if (card.setName != null) {
             Text(
                 text = card.setName,
