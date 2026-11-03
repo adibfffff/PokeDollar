@@ -1,13 +1,14 @@
 package td.info507.pokedollar.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.repository.CardRepository
 
-// Récupère la collection (données statiques pour l'instant, Room au TD5)
+// Collection triée de la plus chère à la moins chère
 object GetCollectionUseCase {
     fun invoke(): Flow<List<Card>> {
         return CardRepository.getCollection()
+            .map { cards -> cards.sortedByDescending { it.price ?: 0.0 } }   // sans prix = à la fin
     }
 }

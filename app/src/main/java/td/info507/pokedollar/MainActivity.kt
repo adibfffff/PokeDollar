@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PokeDollarTheme {
-                // Fond de l'écran = couleur "background" du thème
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -28,4 +27,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 

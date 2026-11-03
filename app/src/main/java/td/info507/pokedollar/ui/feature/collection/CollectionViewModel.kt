@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import td.info507.pokedollar.domain.data.Card
 import td.info507.pokedollar.domain.usecase.GetCollectionUseCase
@@ -15,5 +16,15 @@ class CollectionViewModel : ViewModel() {
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = emptyList()
+            )
+
+    // Nombre total de cartes, exemplaires compris
+    val cardCount : StateFlow<Int> =
+        GetCollectionUseCase.invoke()
+            .map { cards -> cards.sumOf { it.quantity } }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = 0
             )
 }

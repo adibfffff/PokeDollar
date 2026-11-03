@@ -1,3 +1,5 @@
+package td.info507.pokedollar.ui.navigation
+
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 

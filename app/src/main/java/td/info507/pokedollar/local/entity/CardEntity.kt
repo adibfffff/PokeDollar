@@ -1,3 +1,5 @@
+package td.info507.pokedollar.local.entity
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import td.info507.pokedollar.domain.data.Card
